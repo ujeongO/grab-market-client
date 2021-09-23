@@ -2,6 +2,7 @@
 import "./index.css";
 import React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function MainPage() {
   // 1.
@@ -41,26 +42,28 @@ function MainPage() {
           {products.map(function (product, index) {
             return (
               <div className="product-card">
-                <div>
-                  <img
-                    className="product-img"
-                    alt="물건 이미지"
-                    src={product.imageUrl}
-                  />
-                </div>
-                <div className="product-contents">
-                  <span className="product-name">{product.name}</span>
-                  <span className="product-price">{product.price}원</span>
-                  <div className="product-seller">
+                <Link className="product-link" to={`/products/${index}`}>
+                  <div>
                     <img
-                      className="product-avatar"
-                      alt="판매자 이미지"
-                      src="images/icons/avatar.png"
+                      className="product-img"
+                      alt="물건 이미지"
+                      src={product.imageUrl}
                     />
-                    <span>{product.seller}</span>
                   </div>
-                </div>
-              </div>
+                  <div className="product-contents">
+                    <span className="product-name">{product.name}</span>
+                    <span className="product-price">{product.price}원</span>
+                    <div className="product-seller">
+                      <img
+                        className="product-avatar"
+                        alt="판매자 이미지"
+                        src="images/icons/avatar.png"
+                      />
+                      <span>{product.seller}</span>
+                    </div>
+                  </div>
+                </Link>
+              </div> /* /.product-card */
             );
           })}
         </div>
