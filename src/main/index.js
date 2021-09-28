@@ -12,7 +12,7 @@ function MainPage() {
   React.useEffect(function () {
     axios
       .get(
-        "https://b5589888-fdf0-487a-b3eb-6282099e782c.mock.pstmn.io/products"
+        "https://b5589888-fdf0-487a-b3eb-6282099e782c.mock.pstmn.io/products/"
       )
       .then(function (result) {
         const products = result.data.products;
@@ -28,47 +28,43 @@ function MainPage() {
   return (
     // 여러개 태그 return 안됨 → <div>로 씌워서 return 한다.
     <div>
-      <div id="header">
-        <div id="header-area">
-          <img src="images/icons/logo.png" alt="로고 이미지" />
-        </div>
+      <div id="banner">
+        <img src="images/banners/banner1.png" alt="배너 이미지" />
       </div>
-      <div id="body">
-        <div id="banner">
-          <img src="images/banners/banner1.png" alt="배너 이미지" />
-        </div>
-        <h1>판매되는 상품들</h1>
-        <div id="product-list">
-          {products.map(function (product, index) {
-            return (
-              <div className="product-card">
-                <Link className="product-link" to={`/products/${index}`}>
-                  <div>
+      <h1>판매되는 상품들</h1>
+      <div id="product-list">
+        {products.map(function (product, index) {
+          return (
+            <div className="product-card">
+              <Link
+                style={{ color: "inherit" }}
+                className="product-link"
+                to={`/products/${product.id}`}
+              >
+                <div>
+                  <img
+                    className="product-img"
+                    alt="물건 이미지"
+                    src={product.imageUrl}
+                  />
+                </div>
+                <div className="product-contents">
+                  <span className="product-name">{product.name}</span>
+                  <span className="product-price">{product.price}원</span>
+                  <div className="product-seller">
                     <img
-                      className="product-img"
-                      alt="물건 이미지"
-                      src={product.imageUrl}
+                      className="product-avatar"
+                      alt="판매자 이미지"
+                      src="images/icons/avatar.png"
                     />
+                    <span>{product.seller}</span>
                   </div>
-                  <div className="product-contents">
-                    <span className="product-name">{product.name}</span>
-                    <span className="product-price">{product.price}원</span>
-                    <div className="product-seller">
-                      <img
-                        className="product-avatar"
-                        alt="판매자 이미지"
-                        src="images/icons/avatar.png"
-                      />
-                      <span>{product.seller}</span>
-                    </div>
-                  </div>
-                </Link>
-              </div> /* /.product-card */
-            );
-          })}
-        </div>
+                </div>
+              </Link>
+            </div> /* /.product-card */
+          );
+        })}
       </div>
-      <div id="footer"></div>
     </div>
   );
 }
